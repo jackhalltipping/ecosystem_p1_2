@@ -67,10 +67,9 @@ class Ecosystem:
 		for animal in riverListCopy:
 			if self.check_collision(riverListCopy, animal):
 				self.collision_type(riverListCopy, animal)
-		d = deque(riverListCopy)
-		d.rotate(1)
-		print(d)
-		riverListCopy = list[d]
+		riverListCopy = deque(riverListCopy[:])
+		riverListCopy.rotate(1)
+		riverListCopy = list(riverListCopy)
 		self.riverList = riverListCopy[:]
 		output = self.write_to_output_file()
 		outputString = ''.join(output)
