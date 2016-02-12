@@ -1,5 +1,55 @@
+Fish Male 31
+Bear Male 314
+Fish Female 25
+None
+
+None
+Fish Male 31
+Bear Male 314
+Fish Female 25
+
+Fish Female 25
+None
+Fish Male 31
+Bear Male 314
+
 Bear Male 314
 Fish Female 25
 None
 Fish Male 31
+
+Fish Male 31
+Bear Male 314
+Fish Female 25
+None
+
+None
+Fish Male 31
+Bear Male 314
+Fish Female 25
+
+Fish Female 25
+None
+Fish Male 31
+Bear Male 314
+
+Bear Male 314
+Fish Female 25
+None
+Fish Male 31
+
+Fish Male 31
+Bear Male 314
+Fish Female 25
+None
+
+None
+Fish Male 31
+Bear Male 314
+Fish Female 25
+
+Fish Female 25
+None
+Fish Male 31
+Bear Male 314
 

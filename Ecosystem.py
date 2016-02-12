@@ -4,6 +4,7 @@
 
 from random import *
 import re
+from collections import deque
 
 class Ecosystem:
 
@@ -63,7 +64,9 @@ class Ecosystem:
 		also prints the state of the river
 		to an output file at the end of the each step
 		'''
-		riverListCopy = self.riverList[:]
+		riverListCopy = deque(self.riverList[:])
+		riverListCopy.rotate(1)
+		riverListCopy = list(riverListCopy)
 		self.riverList = riverListCopy[:]
 		output = self.write_to_output_file()
 		outputString = ''.join(output)
