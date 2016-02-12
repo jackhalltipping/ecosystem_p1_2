@@ -1,5 +1,0 @@
-Bear Male 314
-Fish Female 25
-None
-Fish Male 31
-

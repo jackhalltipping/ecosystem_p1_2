@@ -65,13 +65,20 @@ class Ecosystem:
 		'''
 		riverListCopy = self.riverList[:]
 		for animal in riverListCopy:
-			print(self.check_collision(riverListCopy, animal))
+			if self.check_collision(riverListCopy, animal):
+				self.collision_type(riverListCopy, animal)
+		d = deque(riverListCopy)
+		d.rotate(1)
+		print(d)
+		riverListCopy = list[d]
 		self.riverList = riverListCopy[:]
 		output = self.write_to_output_file()
 		outputString = ''.join(output)
 		self.outputFile.write(outputString + '\n')
 
 	def check_collision(self, riverListCopy, animal):
+		'''returns True or False if there is or isnt a collision between
+		animals'''
 		if animal is None:
 			return False
 		elif riverListCopy.index(animal) + 1 == len(riverListCopy):
@@ -85,16 +92,56 @@ class Ecosystem:
 			else:
 				return True
 
-	def collision_type(self, firstAnimal, secondAnimal):
+	def collision_type(self, riverListCopy, animal):
+		'''returns the type of collision and calls the appropriate function'''
+		if riverListCopy.index(animal) + 1 == len(riverListCopy):
+			if animal.__class__.__name__ == Bear and riverListCopy[0].__class__.__name__ == Fish:
+				self.eat(riverListCopy, animal)
+			elif animal.__class__.__name__ == riverListCopy[0].__class__.__name__:
+				if animal.get_gender() == riverListCopy[0].get_gender():
+					self.fight(riverListCopy, animal)
+				else:
+					self.mate(riverListCopy, animal)
+		else:
+			if animal.__class__.__name__ == Bear and riverListCopy[riverListCopy.index(animal) + 1].__class__.__name__ == Fish:
+				self.eat(riverListCopy, animal)
+			elif animal.__class__.__name__ == riverListCopy[riverListCopy.index(animal) + 1].__class__.__name__:
+				if animal.get_gender() == riverListCopy[riverListCopy.index(animal) + 1].get_gender():
+					self.fight(riverListCopy, animal)
+				else:
+					self.mate(riverListCopy, animal)
+
+
+	def mate(self, riverListCopy, animal):
+		newStrength = 0
+		newGender = 0
+		newAnimal = animal.__class__.__name__
+		if riverListCopy.index(animal) + 1 == len(riverListCopy):
+			newStrength = (animal.get_strength() + riverListCopy[0].get_strength()) / 2
+			if animal.get_strength() > riverListCopy[0].get_strength():
+				newGender = animal.get_gender()
+			else:
+				newGender = riverListCopy[0].get_gender()
+		else:
+
+			newStrength = (animal.get_strength() + riverListCopy[riverListCopy.index(animal) + 1].get_strength()) / 2
+			if animal.get_strength() > riverListCopy[riverListCopy.index(animal) + 1].get_strength():
+				newGender = animal.get_gender()
+			else:
+				newGender = riverListCopy[riverListCopy.index(animal) + 1].get_gender()
+		emptySpace = randrange(0,len(riverListCopy))
+		while riverListCopy[emptySpace] != None:
+			emptySpace = randrange(0,len(riverListCopy))
+		riverListCopy.pop(emptySpace)
+		if newAnimal == 'Fish':
+			riverListCopy.insert(emptySpace, Fish(newGender, newStrength))
+		elif newAnimal == 'Bear':
+			riverListCopy.insert(emptySpace, Bear(newGender, newStrength))
+
+	def eat(self, riverListCopy, animal):
 		pass
 
-	def mate(self):
-		pass
-
-	def eat(self):
-		pass
-
-	def fight(self):
+	def fight(self, riverListCopy, animal):
 		pass
 
 	def get_size(self):
