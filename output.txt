@@ -1,6 +1,5 @@
 None
 None
 None
-None
-Bear Male 6
+Bear Male 30
 

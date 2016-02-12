@@ -94,7 +94,7 @@ class Ecosystem:
 	def collision_type(self, riverListCopy, animal):
 		'''returns the type of collision and calls the appropriate function'''
 		if riverListCopy.index(animal) + 1 == len(riverListCopy):
-			if animal.__class__.__name__ == Bear and riverListCopy[0].__class__.__name__ == Fish:
+			if animal.__class__.__name__ == 'Bear' and riverListCopy[0].__class__.__name__ == 'Fish':
 				self.eat(riverListCopy, animal)
 			elif animal.__class__.__name__ == riverListCopy[0].__class__.__name__:
 				if animal.get_gender() == riverListCopy[0].get_gender():
@@ -102,14 +102,13 @@ class Ecosystem:
 				else:
 					self.mate(riverListCopy, animal)
 		else:
-			if animal.__class__.__name__ == Bear and riverListCopy[riverListCopy.index(animal) + 1].__class__.__name__ == Fish:
+			if animal.__class__.__name__ == 'Bear' and riverListCopy[riverListCopy.index(animal) + 1].__class__.__name__ == 'Fish':
 				self.eat(riverListCopy, animal)
 			elif animal.__class__.__name__ == riverListCopy[riverListCopy.index(animal) + 1].__class__.__name__:
 				if animal.get_gender() == riverListCopy[riverListCopy.index(animal) + 1].get_gender():
 					self.fight(riverListCopy, animal)
 				else:
 					self.mate(riverListCopy, animal)
-
 
 	def mate(self, riverListCopy, animal):
 		newStrength = 0
@@ -137,7 +136,17 @@ class Ecosystem:
 			riverListCopy.insert(emptySpace, Bear(newGender, newStrength))
 
 	def eat(self, riverListCopy, animal):
-		pass
+		if riverListCopy.index(animal) + 1 == len(riverListCopy):
+			newStrength = animal.get_strength() + riverListCopy[0].get_strength()
+			animal.set_strength(newStrength)
+			riverListCopy.pop(0)
+			riverListCopy.insert(0, None)
+		else:
+			newStrength = animal.get_strength() + riverListCopy[riverListCopy.index(animal) + 1].get_strength()
+			animal.set_strength(newStrength)
+			newSpace = riverListCopy.index(animal) + 1
+			riverListCopy.pop(riverListCopy.index(animal) + 1)
+			riverListCopy.insert(newSpace, None)
 
 	def fight(self, riverListCopy, animal):
 		if riverListCopy.index(animal) + 1 == len(riverListCopy):
