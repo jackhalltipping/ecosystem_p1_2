@@ -3,6 +3,7 @@
 # P1-1
 
 from random import *
+import re
 
 class Ecosystem:
 
@@ -20,14 +21,21 @@ class Ecosystem:
 			raise ValueError('Please enter a valid text filename')
 		try:
 			self.inputFile = open(filename, 'r')
-			self.newInputFile = self.inputFile.readline()
+			self.newInputFile = self.inputFile.readlines()
 		except ValueError:
 			print('Please enter a valid text filename')
 
 	def add_file_to_river_list(self):
 		'''Adds the appropriate animal objects to the riverList depending on
 		the input file'''
-		pass
+		for animal in self.newInputFile:
+			if animal[0] == 'B':
+				self.riverList.append(Bear(animal[2], int(re.search(r'\d+', animal).group())))
+				print(self.riverList[0].strength)
+			elif animal[0] == 'F':
+				self.riverList.append(Fish(animal[2], int(re.search(r'\d+', animal).group())))
+			else:
+				self.riverList.append(None)
 
 	def write_to_output_file(self):
 		'''For each bear, fish and none instance it writes the appropriate
