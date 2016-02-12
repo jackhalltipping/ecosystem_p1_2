@@ -1,6 +1,6 @@
 # Jack Hall-Tipping
 # CSCI - 204 - Dancy
-# P1-1
+# P1-2
 
 from random import *
 import re
