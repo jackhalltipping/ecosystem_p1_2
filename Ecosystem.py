@@ -10,8 +10,8 @@ class Ecosystem:
 
 	def __init__(self, filename):
 		self.open_file(filename)
-		self.riverList =[]
-		self.add_file_to_river_list()
+		self.riverList = []
+		self.input_file_to_river_list()
 		self.inputFile.close()
 		self.outputFile = open('output.txt', 'w' )
 		self.newOutputFile = self.outputFile
@@ -26,13 +26,12 @@ class Ecosystem:
 		except ValueError:
 			print('Please enter a valid text filename')
 
-	def add_file_to_river_list(self):
+	def input_file_to_river_list(self):
 		'''Adds the appropriate animal objects to the riverList depending on
 		the input file'''
 		for animal in self.newInputFile:
 			if animal[0] == 'B':
 				self.riverList.append(Bear(animal[2], int(re.search(r'\d+', animal).group())))
-				print(self.riverList[0].strength)
 			elif animal[0] == 'F':
 				self.riverList.append(Fish(animal[2], int(re.search(r'\d+', animal).group())))
 			else:
@@ -44,17 +43,17 @@ class Ecosystem:
 		outputList = []
 		for animal in self.riverList:
 			if isinstance(animal, Fish):
-				if animal.gender == 'M':
+				if animal.get_gender() == 'M':
 					gender = 'Male'
 				else:
 					gender = 'Female'
-				outputList.append('Fish ' + (gender) + ' ' + str(animal.strength) + '\n')
+				outputList.append('Fish ' + (gender) + ' ' + str(animal.get_strength()) + '\n')
 			elif isinstance(animal, Bear):
-				if animal.gender == 'M':
+				if animal.get_gender() == 'M':
 					gender = 'Male'
 				else:
 					gender = 'Female'
-				outputList.append('Bear ' + (gender) + ' ' + str(animal.strength) + '\n')
+				outputList.append('Bear ' + (gender) + ' ' + str(animal.get_strength()) + '\n')
 			else:
 				outputList.append('None' + '\n')
 		return outputList
@@ -89,21 +88,57 @@ class Ecosystem:
 class Animal(object):
 
 	def __init__(self, gender, strength):
-		self.gender = gender
-		self.strength = strength
+		self._gender = gender
+		self._strength = strength
+
+	def get_gender(self):
+		return(self._gender)
+
+	def get_strength(self):
+		return(self._strength)
+
+	def set_gender(self, gender):
+		self._gender = gender
+
+	def set_strength(self, strength):
+		self._strength = strength
 
 class Bear(Animal):
 
 	def __init__(self, gender, strength):
 		super(Bear, self).__init__(gender, strength)
 
+	def get_gender(self):
+		return super(Bear, self).get_gender()
+
+	def get_strength(self):
+		return super(Bear, self).get_strength()
+
 	def get_image(self):
 		return "bear.ppm"
+
+	def set_gender(self, gender):
+		super(Bear, self).set_gender(gender)
+
+	def set_strength(self, strength):
+		super(Bear, self).set_strength(strength)
 
 class Fish(Animal):
 
 	def __init__(self, gender, strength):
 		super(Fish, self).__init__(gender, strength)
+
+	def get_gender(self):
+		return super(Fish, self).get_gender()
+
+	def get_strength(self):
+		return super(Fish, self).get_strength()
+
+	def set_gender(self, gender):
+		super(Fish, self).set_gender(gender)
+
+	def set_strength(self, strength):
+		super(Fish, self).set_strength(strength)
 
 	def get_image(self):
 		return "salmon.ppm"
