@@ -40,14 +40,34 @@ class Ecosystem:
 	def write_to_output_file(self):
 		'''For each bear, fish and none instance it writes the appropriate
 		string letter, i.e. F B N to an output file'''
-		pass
+		outputList = []
+		for animal in self.riverList:
+			if isinstance(animal, Fish):
+				if animal.gender == 'M':
+					gender = 'Male'
+				else:
+					gender = 'Female'
+				outputList.append('Fish ' + (gender) + ' ' + str(animal.strength) + '\n')
+			elif isinstance(animal, Bear):
+				if animal.gender == 'M':
+					gender = 'Male'
+				else:
+					gender = 'Female'
+				outputList.append('Bear ' + (gender) + ' ' + str(animal.strength) + '\n')
+			else:
+				outputList.append('None' + '\n')
+		return outputList
 
 	def step(self):
 		''' Moves the whole river one step forward in time.
 		also prints the state of the river
 		to an output file at the end of the each step
 		'''
-		pass
+		riverListCopy = self.riverList[:]
+		self.riverList = riverListCopy[:]
+		output = self.write_to_output_file()
+		outputString = ''.join(output)
+		self.outputFile.write(outputString + '\n')
 
 	def get_size(self):
 		''' Returns the size of the river '''
