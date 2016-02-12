@@ -122,7 +122,6 @@ class Ecosystem:
 			else:
 				newGender = riverListCopy[0].get_gender()
 		else:
-
 			newStrength = (animal.get_strength() + riverListCopy[riverListCopy.index(animal) + 1].get_strength()) / 2
 			if animal.get_strength() > riverListCopy[riverListCopy.index(animal) + 1].get_strength():
 				newGender = animal.get_gender()
@@ -141,7 +140,31 @@ class Ecosystem:
 		pass
 
 	def fight(self, riverListCopy, animal):
-		pass
+		if riverListCopy.index(animal) + 1 == len(riverListCopy):
+			if animal.get_strength() > riverListCopy[0].get_strength():
+				newStrength = animal.get_strength() - riverListCopy[0].get_strength()
+				animal.set_strength(newStrength)
+				riverListCopy.pop(0)
+				riverListCopy.insert(0, None)
+			else:
+				newStrength = riverListCopy[0].get_strength() - animal.get_strength()
+				riverListCopy[0].set_strength(newStrength)
+				newSpace = riverListCopy.index(animal)
+				riverListCopy.pop(riverListCopy.index(animal))
+				riverListCopy.insert(newSpace, None)
+		else:
+			if animal.get_strength() > riverListCopy[riverListCopy.index(animal) + 1].get_strength():
+				newStrength = animal.get_strength() - riverListCopy[riverListCopy.index(animal) + 1].get_strength()
+				animal.set_strength(newStrength)
+				newSpace = riverListCopy.index(animal) + 1
+				riverListCopy.pop(riverListCopy.index(animal) + 1)
+				riverListCopy.insert(newSpace, None)
+			else:
+				newStrength = riverListCopy[riverListCopy.index(animal) + 1].get_strength() - animal.get_strength()
+				riverListCopy[riverListCopy.index(animal) + 1].set_strength(newStrength)
+				newSpace = riverListCopy.index(animal)
+				riverListCopy.pop(riverListCopy.index(animal))
+				riverListCopy.insert(newSpace, None)
 
 	def get_size(self):
 		''' Returns the size of the river '''
