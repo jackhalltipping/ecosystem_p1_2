@@ -92,7 +92,7 @@ class Ecosystem:
 				return True
 
 	def collision_type(self, riverListCopy, animal):
-		'''returns the type of collision and calls the appropriate function'''
+		'''checks the type of collision and calls the appropriate function'''
 		if riverListCopy.index(animal) + 1 == len(riverListCopy):
 			if animal.__class__.__name__ == 'Bear' and riverListCopy[0].__class__.__name__ == 'Fish':
 				self.eat(riverListCopy, animal)
@@ -111,6 +111,10 @@ class Ecosystem:
 					self.mate(riverListCopy, animal)
 
 	def mate(self, riverListCopy, animal):
+		'''if two animals of the same species but different genders collide
+		it randomly spawns a new animal of the same species. this new animal
+		takes the gender of the stronger parent, and the strength of this
+		new animal is the average of its parents'''
 		newStrength = 0
 		newGender = 0
 		newAnimal = animal.__class__.__name__
@@ -136,6 +140,8 @@ class Ecosystem:
 			riverListCopy.insert(emptySpace, Bear(newGender, newStrength))
 
 	def eat(self, riverListCopy, animal):
+		'''if a bear collides with a fish the bear eats the fish
+		and gets the strength of the fish'''
 		if riverListCopy.index(animal) + 1 == len(riverListCopy):
 			newStrength = animal.get_strength() + riverListCopy[0].get_strength()
 			animal.set_strength(newStrength)
@@ -149,6 +155,10 @@ class Ecosystem:
 			riverListCopy.insert(newSpace, None)
 
 	def fight(self, riverListCopy, animal):
+		'''if two animals of the same species and gender collide, the
+		animals fight and the animal with more strength wins and the other
+		dies. the animal that survives loses the amount of strength
+		equal to the one that died'''
 		if riverListCopy.index(animal) + 1 == len(riverListCopy):
 			if animal.get_strength() > riverListCopy[0].get_strength():
 				newStrength = animal.get_strength() - riverListCopy[0].get_strength()
@@ -196,15 +206,19 @@ class Animal(object):
 		self._strength = strength
 
 	def get_gender(self):
+		'''returns the gender of an animal'''
 		return(self._gender)
 
 	def get_strength(self):
+		'''returns the strength of an animal'''
 		return(self._strength)
 
 	def set_gender(self, gender):
+		'''sets the gender of an animal'''
 		self._gender = gender
 
 	def set_strength(self, strength):
+		'''sets the strength of an animal'''
 		self._strength = strength
 
 class Bear(Animal):
