@@ -63,13 +63,30 @@ class Ecosystem:
 		also prints the state of the river
 		to an output file at the end of the each step
 		'''
-		riverListCopy = deque(self.riverList[:])
-		riverListCopy.rotate(1)
-		riverListCopy = list(riverListCopy)
+		riverListCopy = self.riverList[:]
+		for animal in riverListCopy:
+			print(self.check_collision(riverListCopy, animal))
 		self.riverList = riverListCopy[:]
 		output = self.write_to_output_file()
 		outputString = ''.join(output)
 		self.outputFile.write(outputString + '\n')
+
+	def check_collision(self, riverListCopy, animal):
+		if animal is None:
+			return False
+		elif riverListCopy.index(animal) + 1 == len(riverListCopy):
+			if riverListCopy[0] is None:
+				return False
+			else:
+				return True
+		else:
+			if riverListCopy[riverListCopy.index(animal) + 1] is None:
+				return False
+			else:
+				return True
+
+	def collision_type(self, firstAnimal, secondAnimal):
+		pass
 
 	def mate(self):
 		pass
