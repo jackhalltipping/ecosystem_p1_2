@@ -71,6 +71,15 @@ class Ecosystem:
 		outputString = ''.join(output)
 		self.outputFile.write(outputString + '\n')
 
+	def mate(self):
+		pass
+
+	def eat(self):
+		pass
+
+	def fight(self):
+		pass
+
 	def get_size(self):
 		''' Returns the size of the river '''
 		return(len(self.riverList))
@@ -134,11 +143,11 @@ class Fish(Animal):
 	def get_strength(self):
 		return super(Fish, self).get_strength()
 
+	def get_image(self):
+		return "salmon.ppm"
+
 	def set_gender(self, gender):
 		super(Fish, self).set_gender(gender)
 
 	def set_strength(self, strength):
 		super(Fish, self).set_strength(strength)
-
-	def get_image(self):
-		return "salmon.ppm"
