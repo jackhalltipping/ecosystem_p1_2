@@ -63,16 +63,16 @@ class Ecosystem:
 		'''Called when program quits. Close your output file.'''
 		self.outputFile.close()
 
-class Animal:
-
-	def __init__(self):
-		pass
-
-class Bear(Animal):
+class Animal(object):
 
 	def __init__(self, gender, strength):
 		self.gender = gender
 		self.strength = strength
+
+class Bear(Animal):
+
+	def __init__(self, gender, strength):
+		super(Bear, self).__init__(gender, strength)
 
 	def get_image(self):
 		return "bear.ppm"
@@ -80,8 +80,7 @@ class Bear(Animal):
 class Fish(Animal):
 
 	def __init__(self, gender, strength):
-		self.gender = gender
-		self.strength = strength
+		super(Fish, self).__init__(gender, strength)
 
 	def get_image(self):
 		return "salmon.ppm"
